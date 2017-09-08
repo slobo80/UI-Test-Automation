@@ -5,6 +5,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
+using System.Threading;
 
 namespace UI.Test
 {
@@ -27,7 +28,7 @@ namespace UI.Test
             // Runs Chrome without UI. Not useful if debugging as you may need to see the page.
             //options.AddArgument("--headless"); 
 
-            // Using Chrome because of its popularity and because it is preferred choice due to PhantomJS getting abandoned by its maintainer.
+            // Using Chrome because of its marketshare and due to PhantomJS being abandoned by its maintainer.
             driver = new ChromeDriver(options);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3); // Correct place to set it.
             driver.Navigate().GoToUrl("http://www.google.com/");
@@ -61,8 +62,11 @@ namespace UI.Test
         public void BasicTest()
         {
             IWebElement element = driver.FindElement(By.Name("q")); // Move By.Name("q") to a PageObject
+            Thread.Sleep(TimeSpan.FromSeconds(3));
             element.SendKeys("Seattle Code Camp");
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             element.Submit();
+            Thread.Sleep(TimeSpan.FromSeconds(3));
 
             IWebElement result = driver.FindElement(By.CssSelector("h3.r a")); // Wait again for page to finish loading
 
