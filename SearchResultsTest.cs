@@ -23,8 +23,9 @@ namespace UI.Test
         public void Initialize()
         {
             var options = new ChromeOptions();
+            options.AddArgument("--no-sandbox"); 
             // Runs Chrome without UI. Not useful if debugging as you may need to see the page.
-            options.AddArgument("--headless"); 
+            //options.AddArgument("--headless"); 
 
             // Using Chrome because of its popularity and because it is preferred choice due to PhantomJS getting abandoned by its maintainer.
             driver = new ChromeDriver(options);
